@@ -1,4 +1,5 @@
-import { Application, Loader, Sprite } from 'pixi.js'
+import { Application } from "pixi.js";
+import { Scene } from "./scene";
 
 const app = new Application<HTMLCanvasElement>({
 	view: document.getElementById("pixi-canvas") as HTMLCanvasElement,
@@ -31,23 +32,11 @@ window.addEventListener("resize", ()=>{
  	
 });
 window.dispatchEvent(new Event("resize"));
+ 
 
-Loader.shared.add({url: "clampy.png", name: "Image"});
+const texture = async () => {
+	const myScene = new Scene();
+	app.stage.addChild(myScene);
+}
 
-Loader.shared.onComplete.add(()=> {
-	const image: Sprite = Sprite.from("Image");
-
-	image.x = 0;
-	image.y = 0;
-
-	app.stage.addChild(image);
-});
-
-const clampy: Sprite = Sprite.from("clampy.png");
-
-clampy.anchor.set(0.5);
-
-clampy.x = app.screen.width / 2;
-clampy.y = app.screen.height / 2;
-
-app.stage.addChild(clampy);
+texture();
